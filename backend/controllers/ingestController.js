@@ -20,11 +20,12 @@ exports.ingestPDF = async (req, res) => {
       message: "PDF parsed & chunks stored 🎉"
     });
 
-  } catch (err) {
-    console.error("❌ ERROR:", err);
-    return res.status(500).json({
-      success: false,
-      error: err.message
-    });
+  } catch (error) {
+  console.error("❌ PDF PARSE ERROR:", error.message);
+
+  return res.status(400).json({
+    success: false,
+    error: "Invalid or corrupted PDF file. Unable to parse."
+  });
   }
 };

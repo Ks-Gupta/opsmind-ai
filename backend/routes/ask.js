@@ -25,11 +25,11 @@ router.post("/", async (req, res) => {
     const context = chunks.map(c => c.text).join("\n\n");
 
     // 3️⃣ Ask LOCAL LLM (Ollama)
-    const ollamaResponse = await axios.post(
-      "http://localhost:11434/api/generate",
-      {
-        model: "mistral",
-        prompt: `
+    ollamaResponse = await axios.post(
+    "http://localhost:11434/api/generate",
+    {
+      model: "mistral",
+      prompt: `
 You are OpsMind AI.
 Answer ONLY using the context below.
 If the answer is not in the context, say "I don't know".
@@ -50,9 +50,15 @@ ${question}
     });
 
   } catch (err) {
-    console.error("❌ ASK ERROR:", err.message);
-    res.status(500).json({ error: err.message });
-  }
+  console.error("❌ ASK ERROR FULL:", err);
+  console.error("❌ ASK ERROR MESSAGE:", err.message);
+  console.error("❌ ASK ERROR RESPONSE:", err.response?.data);
+
+  return res.status(500).json({
+    error: "Ask endpoint failed",
+    details: err.message
+  });
+}
 });
 
 module.exports = router;
