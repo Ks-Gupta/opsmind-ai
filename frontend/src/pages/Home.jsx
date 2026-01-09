@@ -1,20 +1,20 @@
-
 import "./Home.css";
 import Features from "../components/Features";
-import Chat from "./Chat";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-import { Link } from "react-router-dom";
-
+import DemoChat from "./DemoChat";
 
 export default function Home() {
-    const navigate = useNavigate();
+    const { user } = useAuth();
+  const navigate = useNavigate();
 
-
-const handleStartDemo = () => {
-  navigate("/chat");
-};
-
+  const handleStartDemo = () => {
+    if (user) {
+      navigate("/chat");   // real app
+    } else {
+      navigate("/demo");   // static demo
+    }
+  };
 
   return (
     <section className="hero">
@@ -37,12 +37,11 @@ const handleStartDemo = () => {
         powered by advanced RAG technology.
       </p>
 
-      {/* CTA BUTTONS */}
+      {/* CTA BUTTON */}
       <div className="hero-actions">
-                    <button className="start-demo-btn" onClick={handleStartDemo}>
-            Start Demo
-            </button>
-
+        <button className="start-demo-btn" onClick={handleStartDemo}>
+          Start Demo
+        </button>
       </div>
 
       {/* FEATURE CHIPS */}
@@ -52,18 +51,15 @@ const handleStartDemo = () => {
         <span>🛡️ Hallucination Guardrails</span>
       </div>
 
-        {/* FEATURES SECTION */}
+      {/* FEATURES SECTION */}
       <section id="features">
         <Features />
       </section>
 
-    
-      {/* <section id="demo">
-        <Chat />
+      <section id="demo">
+        {/* DEMO CHAT SECTION */}
+        <DemoChat />
       </section>
-       */}
     </section>
-
   );
 }
-

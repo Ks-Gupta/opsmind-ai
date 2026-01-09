@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Auth.css";
 
-export default function SignUp() {
+export default function SignIn() {
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // where to go after login
+  const redirectTo = location.state?.from || "/chat";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,15 +22,18 @@ export default function SignUp() {
       return;
     }
 
-    // TEMP signup success
-    navigate("/signin");
+    // ✅ TEMP LOGIN (later replace with API)
+    login({ email });
+
+    // ✅ redirect correctly
+    navigate(redirectTo);
   };
 
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h2>Create Account</h2>
-        <p>Join OpsMind AI</p>
+        <h2>Sign In</h2>
+        <p>Welcome back to OpsMind AI</p>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -41,13 +51,13 @@ export default function SignUp() {
           />
 
           <button className="auth-btn" type="submit">
-            Sign Up
+            Sign In
           </button>
         </form>
 
         <div className="auth-switch">
-          Already have an account?{" "}
-          <span onClick={() => navigate("/signin")}>Sign In</span>
+          Don’t have an account?{" "}
+          <span onClick={() => navigate("/signup")}>Sign Up</span>
         </div>
       </div>
     </div>

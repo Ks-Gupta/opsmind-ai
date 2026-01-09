@@ -1,0 +1,17 @@
+@import "./Chat.css";
+
+/* Demo badge */
+.demo-badge {
+  background: rgba(20,184,166,0.12);
+  color: #14b8a6;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Disabled upload */
+.demo-disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}

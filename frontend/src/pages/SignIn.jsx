@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Auth.css";
 
 export default function SignIn() {
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // where to go after login
+  const redirectTo = location.state?.from || "/chat";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +22,11 @@ export default function SignIn() {
       return;
     }
 
-    // TEMP login success
-    navigate("/");
+    // ✅ TEMP LOGIN (later replace with API)
+    login({ email });
+
+    // ✅ redirect correctly
+    navigate(redirectTo);
   };
 
   return (
