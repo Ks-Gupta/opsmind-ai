@@ -10,7 +10,8 @@ const ChunkSchema = new mongoose.Schema({
     required: true
   },
   embedding: {
-    type: [Number]   // 👈 vector
+    type: [Number],
+    index: false 
   }
 });
 

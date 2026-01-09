@@ -1,68 +1,221 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* ==============================
+   ROOT THEME VARIABLES
+================================ */
+:root[data-theme="dark"] {
+  --bg-main: #020617;
+  --bg-nav: #0f172a;
+  --bg-card: #020617;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --text-primary: #e5e7eb;
+  --text-secondary: #94a3b8;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --border: rgba(255,255,255,0.08);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+:root[data-theme="light"] {
+  --bg-main: #ffffff;
+  --bg-nav: #ffffff;
+  --bg-card: #f8fafc;
+
+  --text-primary: #020617;
+  --text-secondary: #475569;
+
+  --border: #e5e7eb;
 }
-a:hover {
-  color: #535bf2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* ==============================
+   BASE RESET
+================================ */
+/* html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-main);
+} */
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+
 
 body {
-  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+
+/* ==============================
+   NAVBAR (SIZE NOT REDUCED)
+================================ */
+.navbar {
+  height: 90px;
+  padding: 0 40px;
+
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* LOGO */
+.navbar h2,
+.nav-logo {
+  margin: 0;
+  font-size: 35px;        /* ❌ size NOT changed */
+  font-weight: 700;
+
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* LINKS */
+.navbar a {
+  font-size: 35px;        /* ❌ size NOT changed */
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-left: 28px;
+
+  transition: color 0.2s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.navbar a:hover {
+  color: var(--text-primary);
+}
+
+
+/* ==============================
+   BUTTONS
+================================ */
+button {
+  cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+
+/* ==============================
+   INPUTS
+================================ */
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+
+  color: #cbd5f5;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+/* ==============================
+   LOADER
+================================ */
+.loader {
+  width: 24px;
+  height: 24px;
+
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2563eb;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+
+/* ==============================
+   FOOTER (LIGHT MODE FIX)
+================================ */
+[data-theme="light"] .footer {
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+}
+
+[data-theme="light"] .footer-brand h3,
+[data-theme="light"] .footer-column h4 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .footer-column a,
+[data-theme="light"] .footer-brand p,
+[data-theme="light"] .footer-bottom {
+  color: #475569;
+}
+
+[data-theme="light"] .footer-column a:hover {
+  color: #6366f1;
+}
+
+
+:root {
+  --primary: #2fbfa7;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #0f172a;
+}
+
+[data-theme="dark"] {
+  --bg: #020617;
+  --card: #020617;
+  --text: #e5e7eb;
+}
+
+
+#features,
+#demo {
+  scroll-margin-top: 90px; /* navbar height */
 }

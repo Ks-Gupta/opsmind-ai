@@ -1,42 +1,239 @@
-#root {
-  max-width: 1280px;
+/* ===== THEME ===== */
+body.dark {
+  --bg-main: #050816;
+  --bg-secondary: #0b1220;
+  --text-main: #ffffff;
+  --card-bg: #0f172a;
+  --accent: #14d6b3;
+}
+
+body.light {
+  --bg-main: #ffffff;
+  --bg-secondary: #f5f7fb;
+  --text-main: #0f172a;
+  --card-bg: #ffffff;
+  --accent: #14d6b3;
+}
+
+.app {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+
+/* ===============================
+   GLOBAL RESET
+================================ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff; /* Light mode default */
+}
+
+[data-theme="dark"] body {
+  background: #020617;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: transparent;
+}
+.main-content {
+  flex: 1;
+}
+
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  height: 56px;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+
+  font-weight: 600;
+  color: #e5e7eb;
+
+  background: rgba(2, 6, 23, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Light mode header */
+[data-theme="light"] .header {
+  background: #ffffff;
+  color: #020617;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   CHAT AREA
+================================ */
+.chat {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chat-inner {
+  max-width: 760px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 32px 24px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* ===============================
+   MESSAGES
+================================ */
+.msg {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.msg.user {
+  align-items: flex-end;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.msg.assistant {
+  align-items: flex-start;
 }
 
-.card {
-  padding: 2em;
+/* Chat bubble (assistant default) */
+.bubble {
+  max-width: 85%;
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  line-height: 1.6;
+  font-size: 15px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
 }
 
-.read-the-docs {
-  color: #888;
+/* User bubble */
+.msg.user .bubble {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+  border: none;
 }
+
+/* Light mode bubbles */
+[data-theme="light"] .bubble {
+  background: #f1f5f9;
+  color: #020617;
+  border: 1px solid #e5e7eb;
+}
+
+[data-theme="light"] .msg.user .bubble {
+  color: #ffffff;
+}
+
+/* ===============================
+   SOURCES
+================================ */
+.sources {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ===============================
+   INPUT BAR
+================================ */
+.input-bar {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+
+  background: rgba(2, 6, 23, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .input-bar {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.input-bar textarea {
+  flex: 1;
+  resize: none;
+
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+}
+
+.input-bar textarea::placeholder {
+  color: #94a3b8;
+}
+
+[data-theme="light"] .input-bar textarea {
+  background: #f8fafc;
+  color: #020617;
+  border: 1px solid #e5e7eb;
+}
+
+/* Send button */
+.input-bar button {
+  padding: 0 22px;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-bar button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+/* ===============================
+   MARKDOWN CONTENT
+================================ */
+.markdown {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.markdown ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.markdown li {
+  margin-bottom: 6px;
+}
+
+.markdown strong {
+  font-weight: 600;
+}
+
+.markdown hr {
+  display: none; /* clean UI */
+}
+

@@ -18,7 +18,15 @@ function splitText(text, chunkSize = 1000, overlap = 200) {
   return chunks;
 }
 
-async function storeChunks(text, filename) {
+
+const fs = require("fs");
+const pdfParse = require("pdf-parse");
+
+async function storeChunks(filePath, filename) {
+  const buffer = fs.readFileSync(filePath);
+  const data = await pdfParse(buffer);
+  const text = data.text;
+
   const chunks = splitText(text);
   console.log("👉 Total chunks:", chunks.length);
 
@@ -28,11 +36,12 @@ async function storeChunks(text, filename) {
     await Chunk.create({
       text: chunk,
       source: filename,
-      embedding: embeddingResult.embedding.values
+      embedding: embeddingResult.embedding.values,
     });
   }
 
   console.log("✅ Stored chunks with embeddings");
 }
+
 
 module.exports = { storeChunks };

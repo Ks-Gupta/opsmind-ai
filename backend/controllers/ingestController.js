@@ -20,12 +20,21 @@ exports.ingestPDF = async (req, res) => {
       message: "PDF parsed & chunks stored 🎉"
     });
 
-  } catch (error) {
-  console.error("❌ PDF PARSE ERROR:", error.message);
+  } catch (err) {
+  console.warn("⚠️ PDF parse warning:", err.message);
 
-  return res.status(400).json({
-    success: false,
-    error: "Invalid or corrupted PDF file. Unable to parse."
-  });
+  if (err.message.includes("bad XRef")) {
+    return res.status(200).json({
+      success: false,
+      warning: "PDF has minor structural issues. Please re-export or try again."
+    });
   }
+
+  return res.status(500).json({
+    success: false,
+    error: "Failed to process PDF"
+  });
+}
+
 };
+

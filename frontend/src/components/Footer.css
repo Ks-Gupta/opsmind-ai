@@ -1,0 +1,133 @@
+/* =========================
+   GLOBAL FIXES
+========================= */
+body {
+  margin: 0;
+}
+
+hr {
+  display: none !important;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.home-hero {
+  position: relative;
+  padding-bottom: 120px;
+}
+
+/* Smooth blend from hero to footer */
+.home-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #020617);
+  pointer-events: none;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  width: 100%;
+  margin-top: 80px;
+  padding-top: 0;
+
+  background: radial-gradient(
+    1200px 500px at top center,
+    #1e293b 0%,
+    #020617 60%
+  );
+
+  border-top: none;
+  box-shadow: none;
+
+   margin-bottom: 0;
+  padding-bottom: 64px;
+}
+
+/* Footer layout */
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px 64px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+}
+
+/* =========================
+   FOOTER BRAND
+========================= */
+.footer-brand h3 {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.footer-brand p {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+/* =========================
+   FOOTER COLUMNS
+========================= */
+.footer-column h4 {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #e5e7eb;
+}
+
+.footer-column a {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: #8b5cf6;
+}
+
+/* =========================
+   FOOTER BOTTOM
+========================= */
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-brand p {
+    margin: 0 auto;
+  }
+}

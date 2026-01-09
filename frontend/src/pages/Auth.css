@@ -1,0 +1,107 @@
+/* ================= AUTH PAGE WRAPPER ================= */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #1e3a8a, #020617);
+}
+
+/* ================= AUTH CARD ================= */
+.auth-card {
+  background: #ffffff;
+  width: 1000px;
+  height: 800px;
+  padding: 100px;
+  border-radius: 50px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* ================= HEADINGS ================= */
+.auth-card h2 {
+  font-size: 50px;
+  color: #000000;
+  font-weight: 700px;
+  margin-bottom: 0px;
+}
+
+.auth-card p {
+  color: #64748b;
+  margin-bottom: 100px;
+  font-size: 30px;
+}
+
+/* ================= INPUTS ================= */
+.auth-card input {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+/* ================= BUTTON ================= */
+.auth-btn {
+  width: 100%;
+  padding: 20px;
+  background: #14b8a6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-btn:hover {
+  background: #0d9488;
+}
+
+/* ================= SWITCH TEXT ================= */
+.auth-switch {
+  margin-top: 50px;
+  font-size: 20px;
+  color: #64748b;
+}
+
+.auth-switch span {
+  color: #14b8a6;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/* ================= ERROR MESSAGE ================= */
+.auth-error {
+  margin-top: 12px;
+  color: #ef4444; 
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ================= SUCCESS MESSAGE ================= */
+.auth-success {
+    margin-top: 12px;
+    color: #22c55e;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .auth-card {
+        width: 90%;
+        height: auto;
+        padding: 50px;
+        border-radius: 30px;
+    }
+}
+
+

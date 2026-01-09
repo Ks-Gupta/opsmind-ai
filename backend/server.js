@@ -7,27 +7,38 @@ dotenv.config();
 
 const app = express();
 
+/* ========= MIDDLEWARE ========= */
 app.use(cors());
-app.use(express.json());
+app.use(express.json());                 // ✅ REQUIRED
+app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  console.log("➡️ HIT:", req.method, req.url);
+  next();
+});
+
+/* ========= MONGODB ========= */
 mongoose
   .connect(process.env.MONGO_URI, {
-    dbName: "OpsMindAI"
+    dbName: "OpsMindAI",
   })
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Error:", err));
 
-app.get("/", (req, res) => {
-  res.send("OpsMind AI Backend Running...");
-});
-
+/* ========= ROUTES ========= */
 const uploadRouter = require("./routes/upload");
 app.use("/api/upload", uploadRouter);
 
 const askRouter = require("./routes/ask");
 app.use("/api/ask", askRouter);
 
-const PORT = process.env.PORT || 5050;
+/* ========= HEALTH ========= */
+app.get("/", (req, res) => {
+  res.send("OpsMind AI Backend Running...");
+});
+
+/* ========= START ========= */
+const PORT = 5050;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
