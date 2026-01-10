@@ -2,15 +2,15 @@
    ADMIN DASHBOARD LAYOUT
 ================================ */
 .admin-dashboard {
-  padding: 32px 48px;
+  padding: 32px 50px;
   background: var(--bg-main);
   min-height: 100vh;
 }
 
 /* PAGE TITLE */
 .page-title {
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 30px;
+  font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 28px;
 }
@@ -21,6 +21,7 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding: 50px 0px;
   gap: 20px;
   margin-bottom: 32px;
 }
@@ -29,19 +30,19 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 20px;
+  padding: 30px 24px;
   position: relative;
 }
 
 .stat-card h3 {
-  font-size: 32px;
+  font-size: 70px;
   font-weight: 700;
   margin: 12px 0 6px;
   color: var(--text-main);
 }
 
 .stat-card p {
-  font-size: 15px;
+  font-size: 25px;
   color: var(--text-muted);
 }
 
@@ -49,12 +50,12 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  font-size: 14px;
+  font-size: 25px;
   font-weight: 600;
 }
 
 .trend.pos {
-  color: #22c55e;
+  color: #1bca5b;
 }
 
 .trend.neg {
@@ -67,7 +68,8 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 30px;
+  padding: 0 10px;
   margin-bottom: 32px;
 }
 
@@ -82,7 +84,7 @@
 }
 
 .card h2 {
-  font-size: 22px;
+  font-size: 50px;
   font-weight: 700;
   color: var(--text-main);
 }
@@ -99,7 +101,9 @@
 .upload-btn {
   background: var(--btn-primary);
   color: white;
+ 
   padding: 10px 18px;
+  font-size: 23px;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -116,16 +120,16 @@
 
 .doc-table th {
   text-align: left;
-  font-size: 14px;
+  font-size: 25px;
   font-weight: 600;
   color: var(--text-muted);
-  padding-bottom: 14px;
+  padding-bottom: 30px;
 }
 
 .doc-table td {
   padding: 16px 0;
   border-top: 1px solid var(--border);
-  font-size: 15px;
+  font-size: 25px;
   color: var(--text-main);
 }
 
@@ -133,7 +137,7 @@
 .status {
   padding: 6px 12px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 25px;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -145,7 +149,7 @@
 
 .status.processing {
   background: #fef3c7;
-  color: #92400e;
+  color: #914617;
 }
 
 /* ACTIONS */
@@ -153,7 +157,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 30px;
   margin-right: 10px;
 }
 
@@ -161,17 +165,17 @@
    TOP QUERIES
 ================================ */
 .query {
-  margin-top: 18px;
+  margin-top: 40px;
 }
 
 .query span {
-  font-size: 14px;
+  font-size: 30px;
   color: var(--text-main);
 }
 
 .query .tag {
   float: right;
-  font-size: 12px;
+  font-size: 22px;
   background: var(--tag-bg);
   color: var(--tag-text);
   padding: 4px 10px;
@@ -179,7 +183,7 @@
 }
 
 .bar {
-  height: 8px;
+  height: 10px;
   background: var(--bar-bg);
   border-radius: 999px;
   margin: 8px 0;
@@ -192,27 +196,85 @@
 }
 
 .value {
-  font-size: 13px;
+  font-size: 22px;
   color: var(--text-muted);
 }
 
 /* ===============================
-   KNOWLEDGE GRAPH
+   KNOWLEDGE GRAPH (PRO)
 ================================ */
+
 .graph-card {
   margin-bottom: 40px;
 }
 
+.graph-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-main);
+}
+
 .graph-placeholder {
-  height: 260px;
-  border: 2px dashed var(--border);
-  border-radius: 16px;
+  height: 420px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.12),
+    rgba(148, 163, 184, 0.04)
+  );
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
-  font-size: 15px;
+  position: relative;
+  overflow: hidden;
 }
+
+/* subtle grid background */
+.graph-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.25;
+}
+
+/* center content */
+.graph-placeholder-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 420px;
+  padding: 20px;
+}
+
+/* icon */
+.graph-placeholder-content::before {
+  content: "🧠";
+  display: block;
+  font-size: 46px;
+  margin-bottom: 14px;
+}
+
+/* title */
+.graph-placeholder-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+/* subtitle */
+.graph-placeholder-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 
 /* ===============================
    THEME VARIABLES
@@ -253,3 +315,91 @@
   --bar-bg: #1e293b;
   --bar-fill: #e5e7eb;
 }
+
+.upload-progress {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.upload-progress div {
+  height: 100%;
+  background: #2563eb;
+  transition: width 0.3s ease;
+}
+
+
+.status.processing {
+  background: #fde68a;
+  color: #92400e;
+}
+
+.status.indexed {
+  background: #bbf7d0;
+  color: #065f46;
+}
+.status.failed {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.doc-filters {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 12px;
+}
+
+.doc-filters input,
+.doc-filters select {
+  padding: 15px 12px;
+  border-radius: 8px;
+    border: 1px solid #cbd5f5;
+  font-size: 28px;
+  border: 1px solid #cbd5f5;
+}
+
+
+.recharts-tooltip-wrapper {
+  font-size: 14px;
+}
+
+.recharts-default-tooltip {
+  border-radius: 8px;
+}
+
+.pdf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.pdf-modal {
+  width: 80%;
+  height: 80%;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-modal-header {
+  padding: 12px 16px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.pdf-frame {
+  flex: 1;
+  border: none;
+}
+
+
+

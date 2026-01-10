@@ -11,8 +11,10 @@ const ChunkSchema = new mongoose.Schema({
   },
   embedding: {
     type: [Number],
-    index: false 
+    default: []
   }
 });
 
-module.exports = mongoose.model("Chunk", ChunkSchema);
+// ✅ PREVENT OverwriteModelError
+module.exports =
+  mongoose.models.Chunk || mongoose.model("Chunk", ChunkSchema);
