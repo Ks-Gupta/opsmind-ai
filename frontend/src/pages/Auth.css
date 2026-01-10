@@ -1,107 +1,148 @@
-/* ================= AUTH PAGE WRAPPER ================= */
+/* PAGE BACKGROUND */
 .auth-page {
   min-height: 100vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at top,
+    #e6f4f1 0%,
+    #eef2f7 40%,
+    #f8fafc 100%
+  );
+}
+
+/* CARD */
+.auth-card {
+  width: 420px;
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  padding: 32px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+}
+
+/* LOGO */
+.auth-logo {
+  display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at top, #1e3a8a, #020617);
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-/* ================= AUTH CARD ================= */
-.auth-card {
-  background: #ffffff;
-  width: 1000px;
-  height: 800px;
-  padding: 100px;
-  border-radius: 50px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-  text-align: center;
+.auth-logo img {
+  width: 36px;
 }
 
-/* ================= HEADINGS ================= */
-.auth-card h2 {
-  font-size: 50px;
-  color: #000000;
-  font-weight: 700px;
-  margin-bottom: 0px;
+.auth-logo span {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-.auth-card p {
-  color: #64748b;
-  margin-bottom: 100px;
-  font-size: 30px;
+/* ROLE TOGGLE */
+.auth-role-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-/* ================= INPUTS ================= */
-.auth-card input {
-  width: 100%;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
+.role-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
   border: 1px solid #e5e7eb;
+  background: #f1f5f9;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.role-btn.active {
+  background: #0f172a;
+  color: white;
+}
+
+/* ROLE BADGE */
+.role-status {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.role-status span {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #e5e7eb;
   font-size: 14px;
 }
 
-.auth-card input:focus {
-  outline: none;
-  border-color: #14b8a6;
+/* TITLES */
+.auth-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-/* ================= BUTTON ================= */
+.auth-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+/* INPUTS */
+.auth-group {
+  margin-bottom: 14px;
+}
+
+.auth-group label {
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.auth-input {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.auth-input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+}
+
+/* BUTTON */
 .auth-btn {
   width: 100%;
-  padding: 20px;
-  background: #14b8a6;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #0f172a;
   color: white;
-  border: none;
-  border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
-  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.35);
 }
 
-.auth-btn:hover {
-  background: #0d9488;
-}
-
-/* ================= SWITCH TEXT ================= */
-.auth-switch {
-  margin-top: 50px;
-  font-size: 20px;
+/* FOOTER */
+.auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
   color: #64748b;
 }
 
-.auth-switch span {
-  color: #14b8a6;
-  cursor: pointer;
-  font-size: 30px;
+.auth-footer span {
+  color: #0f172a;
   font-weight: 600;
+  cursor: pointer;
 }
-
-/* ================= ERROR MESSAGE ================= */
-.auth-error {
-  margin-top: 12px;
-  color: #ef4444; 
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* ================= SUCCESS MESSAGE ================= */
-.auth-success {
-    margin-top: 12px;
-    color: #22c55e;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-    .auth-card {
-        width: 90%;
-        height: auto;
-        padding: 50px;
-        border-radius: 30px;
-    }
-}
-
-
