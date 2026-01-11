@@ -59,6 +59,9 @@ dotenv.config();
 
 const app = express();
 
+app.use("/api/graph", require("./routes/graph"));
+
+
 /* ========= MIDDLEWARE ========= */
 app.use(cors());
 app.use(express.json());

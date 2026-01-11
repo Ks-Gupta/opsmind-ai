@@ -14,8 +14,16 @@ const DocumentSchema = new mongoose.Schema({
   queries: {
     type: Number,
     default: 0
-  }
+  },
+  entities: {
+    type: [String],
+    default: []
+  },
+
+  
 }, { timestamps: true });
+
+
 
 module.exports =
   mongoose.models.Document ||
