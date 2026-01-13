@@ -58,10 +58,10 @@
 
 .auth-card {
   width: 1000px;
-  height: 1000px;
+  height: 1200px;
   background: var(--card-bg);
-  backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
   border-radius: 26px;
   padding: 90px 100px;
   box-shadow: var(--shadow);
@@ -148,7 +148,7 @@
 
 .auth-subtitle {
   text-align: center;
-  font-size: 30px;
+  font-size: 35px;
   color: var(--text-secondary);
   margin-bottom: 40px;
 }
@@ -162,7 +162,7 @@
 }
 
 .auth-group label {
-  font-size: 14px;
+  font-size: 30px;
   color: var(--text-secondary);
 }
 
@@ -172,7 +172,7 @@
   align-items: center;
   padding: 16px 18px;
   background: var(--input-bg);
-  border-radius: 14px;
+  border-radius: 30px;
   border: 1px solid var(--border-color);
 }
 
@@ -181,7 +181,7 @@
   outline: none;
   background: transparent;
   width: 100%;
-  font-size: 16px;
+  font-size: 30px;
   color: var(--text-primary);
 }
 
@@ -196,7 +196,7 @@
   border-radius: 16px;
   background: var(--button-bg);
   color: var(--button-text);
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
@@ -215,7 +215,7 @@
 .auth-footer {
   margin-top: 24px;
   text-align: center;
-  font-size: 15px;
+  font-size: 25px;
   color: var(--text-secondary);
 }
 

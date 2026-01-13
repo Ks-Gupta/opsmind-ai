@@ -131,22 +131,25 @@ router.get("/stats", async (req, res) => {
 /* =========================
    📄 ADMIN DOCUMENTS
 ========================= */
-
 router.get("/documents", async (req, res) => {
   try {
-    const documents = await Document.find().sort({ createdAt: -1 });
+    const documents = await Document.find()
+      .sort({ createdAt: -1 })
+      .select("name queries status progress");
 
     res.json(
       documents.map((doc) => ({
         name: doc.name,
         queries: doc.queries,
         status: doc.status,
+        progress: doc.progress ?? 0   // 👈 IMPORTANT
       }))
     );
   } catch (err) {
     res.status(500).json({ error: "Failed to load documents" });
   }
 });
+
 
 
 

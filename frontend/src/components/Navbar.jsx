@@ -39,6 +39,7 @@ export default function Navbar() {
   };
 
   return (
+    <div className="header">
     <nav className="navbar">
       {/* LEFT */}
       <div className="nav-logo" onClick={() => navigate("/")}>
@@ -98,5 +99,6 @@ export default function Navbar() {
         )}
       </div>
     </nav>
+    </div>
   );
 }

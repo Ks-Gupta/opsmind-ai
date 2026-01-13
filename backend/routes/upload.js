@@ -82,45 +82,145 @@
 
 // module.exports = router;
 
+// const express = require("express");
+// const router = express.Router();
+// const multer = require("multer");
+// const path = require("path");
+// const Document = require("../models/Document");
+
+// /* =========================
+//    FILE STORAGE (MULTER)
+// ========================= */
+// const storage = multer.diskStorage({
+//   destination: "uploads/",
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname); // keep original name
+//   }
+// });
+
+// const upload = multer({ storage });
+
+// /* =========================
+//    HELPER: MARK DOCUMENT INDEXED
+// ========================= */
+// async function markIndexed(docId, filename) {
+//   await Document.updateOne(
+//     { _id: docId },
+//     {
+//       status: "indexed",
+//       entities: ["HR Policy", "Leave", "Reimbursement"] // dummy for now
+//     }
+//   );
+
+//   console.log(`✅ Document indexed: ${filename}`);
+// }
+
+// /* =========================
+//    UPLOAD ROUTE
+// ========================= */
+// router.post("/", upload.single("file"), async (req, res) => {
+//   console.log("🔥 UPLOAD HIT");
+
+//   if (!req.file) {
+//     return res.status(400).json({ error: "No file uploaded" });
+//   }
+
+//   const filename = req.file.originalname;
+
+//   try {
+//     /* 1️⃣ CHECK DUPLICATE */
+//     const exists = await Document.findOne({ name: filename });
+//     if (exists) {
+//       return res.status(409).json({
+//         error: "Document already exists"
+//       });
+//     }
+
+//     /* 2️⃣ CREATE DOCUMENT (PROCESSING) */
+//     const doc = await Document.create({
+//       name: filename,
+//       status: "processing",
+//       queries: 0
+//     });
+
+//     /* 3️⃣ ASYNC INDEXING (NON-BLOCKING) */
+//     setTimeout(async () => {
+//       try {
+//         await markIndexed(doc._id, filename);
+//       } catch (err) {
+//         console.error("❌ Indexing failed:", err);
+//         await Document.updateOne(
+//           { _id: doc._id },
+//           { status: "failed" }
+//         );
+//       }
+//     }, 3000); // simulate indexing delay
+
+//     /* 4️⃣ RESPOND IMMEDIATELY */
+//     res.json({
+//       ok: true,
+//       filename
+//     });
+
+//   } catch (err) {
+//     console.error("❌ Upload error:", err);
+//     res.status(500).json({ error: "Upload failed" });
+//   }
+// });
+
+// module.exports = router;
+
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const path = require("path");
 const Document = require("../models/Document");
 
 /* =========================
-   FILE STORAGE (MULTER)
+   FILE STORAGE
 ========================= */
 const storage = multer.diskStorage({
   destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, file.originalname); // keep original name
-  }
+  filename: (req, file, cb) => cb(null, file.originalname),
 });
 
 const upload = multer({ storage });
 
 /* =========================
-   HELPER: MARK DOCUMENT INDEXED
+   INDEXING WORKER
 ========================= */
-async function markIndexed(docId, filename) {
-  await Document.updateOne(
-    { _id: docId },
-    {
-      status: "indexed",
-      entities: ["HR Policy", "Leave", "Reimbursement"] // dummy for now
-    }
-  );
+async function simulateIndexing(docId, filename) {
+  try {
+    console.log("⏳ Indexing started:", filename);
 
-  console.log(`✅ Document indexed: ${filename}`);
+    await Document.updateOne({ _id: docId }, { progress: 30 });
+    await new Promise(r => setTimeout(r, 1000));
+
+    await Document.updateOne({ _id: docId }, { progress: 60 });
+    await new Promise(r => setTimeout(r, 1000));
+
+    await Document.updateOne(
+      { _id: docId },
+      {
+        status: "indexed",
+        progress: 100,
+        entities: ["HR Policy", "Leave", "Reimbursement"],
+      }
+    );
+
+    console.log("✅ Indexed:", filename);
+  } catch (err) {
+    console.error("❌ Indexing failed:", err);
+    await Document.updateOne(
+      { _id: docId },
+      { status: "failed" }
+    );
+  }
 }
 
 /* =========================
    UPLOAD ROUTE
 ========================= */
 router.post("/", upload.single("file"), async (req, res) => {
-  console.log("🔥 UPLOAD HIT");
-
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
@@ -128,39 +228,29 @@ router.post("/", upload.single("file"), async (req, res) => {
   const filename = req.file.originalname;
 
   try {
-    /* 1️⃣ CHECK DUPLICATE */
+    // 1️⃣ Prevent duplicate
     const exists = await Document.findOne({ name: filename });
     if (exists) {
-      return res.status(409).json({
-        error: "Document already exists"
-      });
+      return res.status(409).json({ error: "Document already exists" });
     }
 
-    /* 2️⃣ CREATE DOCUMENT (PROCESSING) */
+    // 2️⃣ Save document
     const doc = await Document.create({
       name: filename,
       status: "processing",
-      queries: 0
+      progress: 0,
+      queries: 0,
     });
 
-    /* 3️⃣ ASYNC INDEXING (NON-BLOCKING) */
-    setTimeout(async () => {
-      try {
-        await markIndexed(doc._id, filename);
-      } catch (err) {
-        console.error("❌ Indexing failed:", err);
-        await Document.updateOne(
-          { _id: doc._id },
-          { status: "failed" }
-        );
-      }
-    }, 3000); // simulate indexing delay
+    // 3️⃣ START INDEXING (🔥 THIS WAS MISSING)
+    simulateIndexing(doc._id, filename);
 
-    /* 4️⃣ RESPOND IMMEDIATELY */
-    res.json({
-      ok: true,
-      filename
-    });
+    // 4️⃣ Respond immediately
+    res.status(200).json({
+  success: true,
+  filename
+});
+
 
   } catch (err) {
     console.error("❌ Upload error:", err);

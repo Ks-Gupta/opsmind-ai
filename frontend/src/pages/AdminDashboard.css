@@ -362,7 +362,7 @@
 
 
 .recharts-tooltip-wrapper {
-  font-size: 14px;
+  font-size: 25px;
 }
 
 .recharts-default-tooltip {
@@ -399,6 +399,19 @@
 .pdf-frame {
   flex: 1;
   border: none;
+}
+
+/* ===============================
+   CHART CARDS (HEIGHT FIX)
+================================ */
+.dashboard-grid .card {
+    padding-top: 50px;
+  padding-bottom: 50px; ;
+  min-height: 700px;
+}
+
+.dashboard-grid .card h2 {
+  margin-bottom: 40px;
 }
 
 

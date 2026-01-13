@@ -56,30 +56,60 @@ export async function deleteDocument(filename) {
 //   });
 // }
 
-export function uploadDocument(file, onProgress) {
+// export function uploadDocument(file, onProgress) {
+//   return new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     const formData = new FormData();
+
+//     formData.append("file", file);
+
+//     xhr.upload.onprogress = (e) => {
+//       if (e.lengthComputable && onProgress) {
+//         onProgress(Math.round((e.loaded / e.total) * 100));
+//       }
+//     };
+
+//     xhr.onload = () => {
+//       try {
+//         const res = JSON.parse(xhr.responseText);
+
+//         if (xhr.status === 200) {
+//           resolve(res);
+//         } else {
+//           reject(res.error || "Upload failed");
+//         }
+//       } catch {
+//         reject("Upload failed");
+//       }
+//     };
+
+//     xhr.onerror = () => reject("Network error");
+
+//     xhr.open("POST", "http://localhost:5050/api/upload");
+//     xhr.send(formData);
+//   });
+// }
+
+
+export async function uploadDocument(file, onProgress) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
-
     formData.append("file", file);
 
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable && onProgress) {
-        onProgress(Math.round((e.loaded / e.total) * 100));
+        const percent = Math.round((e.loaded / e.total) * 100);
+        onProgress(percent);
       }
     };
 
     xhr.onload = () => {
-      try {
-        const res = JSON.parse(xhr.responseText);
-
-        if (xhr.status === 200) {
-          resolve(res);
-        } else {
-          reject(res.error || "Upload failed");
-        }
-      } catch {
-        reject("Upload failed");
+      if (xhr.status === 200) {
+        resolve();
+      } else {
+        const res = JSON.parse(xhr.responseText || "{}");
+        reject(res.error || "Upload failed");
       }
     };
 
@@ -89,7 +119,6 @@ export function uploadDocument(file, onProgress) {
     xhr.send(formData);
   });
 }
-
 
 
 

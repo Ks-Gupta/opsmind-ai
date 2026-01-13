@@ -200,45 +200,46 @@ export default function Chat() {
   /* ======================
      FILE UPLOAD LOGIC
   ====================== */
-  const handleUpload = async () => {
-    if (!file || uploading) return;
+ const handleUpload = async () => {
+  if (!file || uploading) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const formData = new FormData();
+  formData.append("file", file);
 
-    try {
-      setUploading(true);
+  try {
+    setUploading(true);
 
-      const res = await api.post("/upload", formData);
+    const res = await api.post("/upload", formData);
 
-      // ✅ SUCCESS
+    // ✅ backend sends { ok: true, filename }
+    if (res.status === 200 && res.data?.filename) {
       alert("Document uploaded successfully");
 
       setUploadedFiles(prev => [
         ...prev,
         {
           name: res.data.filename,
-          size: file
-            ? (file.size / 1024 / 1024).toFixed(2) + " MB"
-            : "0.00 MB"
+          size: (file.size / 1024 / 1024).toFixed(2) + " MB"
         }
       ]);
 
-      // reset input
-      setFile(null);
-      document.getElementById("fileInput").value = "";
-
-    } catch (err) {
-      // ✅ DUPLICATE DOCUMENT
-      if (err.response?.status === 409) {
-        alert("Document already exists");
-      } else {
-        alert("Upload failed. Please try again.");
-      }
-    } finally {
-      setUploading(false);
+      setFile(null); // ✅ THIS IS ENOUGH
+    } else {
+      throw new Error("Upload failed");
     }
-  };
+
+  } catch (err) {
+    if (err.response?.status === 409) {
+      alert("⚠️ Document already exists");
+    } else {
+      alert("Upload failed. Please try again.");
+    }
+  } finally {
+    setUploading(false);
+  }
+};
+
+
 
   /* ======================
      LOAD EXISTING FILES
@@ -275,7 +276,7 @@ export default function Chat() {
                 <div className="bubble">{m.text}</div>
               </div>
             ))}
-            {loading && <div className="bubble">Typing...</div>}
+            {loading && <div className="bubble" color="black">Typing...</div>}
           </div>
 
           <div className="chat-input">
@@ -297,29 +298,38 @@ export default function Chat() {
           </p>
 
           <div className="upload-box">
-            <input
-              id="fileInput"
-              type="file"
-              accept=".pdf"
-              onChange={e => setFile(e.target.files[0])}
-            />
+            <label className="file-input-wrapper">
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
 
-            <p>{file ? file.name : "Choose PDF file"}</p>
+              <span className="file-placeholder">
+                {file ? file.name : "Choose PDF file"}
+              </span>
+            </label>
 
-            <button onClick={handleUpload} disabled={!file || uploading}>
+            <button
+              className="upload-btn"
+              disabled={!file || uploading}
+              onClick={handleUpload}
+            >
               {uploading ? "Uploading..." : "Upload PDF"}
             </button>
           </div>
 
+
           {/* UPLOADED FILES */}
           <div className="uploaded-files">
             {uploadedFiles.map((doc, i) => (
-              <div className="doc" key={i}>
-                <span className="doc-title">{doc.name}</span>
-                <span className="doc-size">{doc.size}</span>
+              <div className="file-chip" key={i}>
+                <span className="file-name">{doc.name}</span>
+                
               </div>
             ))}
           </div>
+
         </div>
 
       </div>

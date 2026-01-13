@@ -63,9 +63,10 @@ body {
 /* ==============================
    NAVBAR (SIZE NOT REDUCED)
 ================================ */
+
 .navbar {
-  height: 90px;
-  padding: 0 40px;
+  height: 120px;
+  padding: 0 100px;
 
   display: flex;
   align-items: center;
@@ -73,7 +74,11 @@ body {
 
   background: var(--bg-nav);
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
 
 /* LOGO */
 .navbar h2,
@@ -218,4 +223,12 @@ textarea {
 #features,
 #demo {
   scroll-margin-top: 90px; /* navbar height */
+}
+
+.card {
+  min-height: 220px;
+}
+
+.doc-table {
+  min-height: 400px;
 }
