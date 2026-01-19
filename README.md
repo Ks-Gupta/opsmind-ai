@@ -1,7 +1,3 @@
-Here is a **clean, professional, industry-standard rewrite** of your content with improved tone, clarity, and structure—**without changing the meaning**.
-You can directly paste this into your **README.md**.
-
----
 
 # OpsMind AI 🤖
 
@@ -173,12 +169,3 @@ npm start
 **Khushi Gupta**
 
 ---
-
-If you want, I can also:
-
-* Tailor this for **VTU / college submission**
-* Add **API documentation**
-* Make it **placement-ready for GitHub**
-* Write **Abstract, Problem Statement, and Conclusion**
-
-Just tell me 👌
