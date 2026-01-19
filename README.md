@@ -135,7 +135,7 @@ npm install
 **Backend**
 
 ```bash
-npm start
+node server.js
 ```
 
 **Frontend**
